@@ -56,6 +56,9 @@ object Libs {
         const val compiler = "androidx.lifecycle:lifecycle-compiler:2.5.1"
         const val process = "androidx.lifecycle:lifecycle-process:2.5.1"
         const val coreTesting = "androidx.arch.core:core-testing:2.1.0"
+    }
 
+    object Lottie {
+        const val lottie = "com.airbnb.android:lottie:5.2.0"
     }
 }

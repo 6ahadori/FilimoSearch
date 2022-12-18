@@ -62,10 +62,12 @@ dependencies {
     implementation(Libs.Coroutine.core)
     implementation(Libs.Coroutine.android)
 
-    implementation (Libs.Lifecycle.viewModelKtx)
-    implementation (Libs.Lifecycle.liveDataKtx)
-    implementation (Libs.Lifecycle.runtimeKtx)
-    implementation (Libs.Lifecycle.savedState)
-    kapt (Libs.Lifecycle.compiler)
-    testImplementation (Libs.Lifecycle.coreTesting)
+    implementation(Libs.Lifecycle.viewModelKtx)
+    implementation(Libs.Lifecycle.liveDataKtx)
+    implementation(Libs.Lifecycle.runtimeKtx)
+    implementation(Libs.Lifecycle.savedState)
+    kapt(Libs.Lifecycle.compiler)
+    testImplementation(Libs.Lifecycle.coreTesting)
+
+    implementation(Libs.Lottie.lottie)
 }
