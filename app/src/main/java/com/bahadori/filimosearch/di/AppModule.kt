@@ -1,6 +1,5 @@
 package com.bahadori.filimosearch.di
 
-import android.app.Application
 import com.bahadori.filimosearch.BuildConfig
 import com.bahadori.filimosearch.features.core.data.remote.FilimoApi
 import com.bahadori.filimosearch.features.core.data.remote.NetworkConstants
@@ -20,5 +19,34 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+    @Provides
+    @Singleton
+    fun provideOkHttpClient(): OkHttpClient {
+        val httpClient = OkHttpClient.Builder()
+        httpClient.connectTimeout(NetworkConstants.TIMEOUT, TimeUnit.SECONDS)
+            .writeTimeout(NetworkConstants.TIMEOUT, TimeUnit.SECONDS)
+            .readTimeout(NetworkConstants.TIMEOUT, TimeUnit.SECONDS)
+        httpClient.addInterceptor(HeaderInterceptor())
+        httpClient.addInterceptor(
+            HttpLoggingInterceptor()
+                .apply {
+                    level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
+                    else HttpLoggingInterceptor.Level.NONE
+                }
+        )
+        return httpClient.build()
+    }
 
+    @Provides
+    @Singleton
+    fun provideFilimoApi(client: OkHttpClient): FilimoApi {
+        return Retrofit.Builder()
+            .addConverterFactory(
+                GsonConverterFactory.create()
+            )
+            .baseUrl(NetworkConstants.BASE_URL)
+            .client(client)
+            .build()
+            .create(FilimoApi::class.java)
+    }
 }

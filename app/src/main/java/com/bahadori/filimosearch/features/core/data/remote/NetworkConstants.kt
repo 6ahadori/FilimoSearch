@@ -6,7 +6,7 @@ object NetworkConstants {
      */
     private const val V1 = "/v1"
     private const val EN = "/en"
-    const val BASE_URL = "https://www.filimo.com/api$EN$V1"
+    const val BASE_URL = "https://www.filimo.com/api$EN$V1/"
 
     /**
      * Number of retries if network call failed
