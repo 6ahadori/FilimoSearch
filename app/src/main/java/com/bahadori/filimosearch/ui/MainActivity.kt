@@ -8,6 +8,10 @@ import com.bahadori.filimosearch.features.core.data.remote.FilimoApi
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import com.bahadori.filimosearch.features.core.util.common.Constants.TAG
+import com.bahadori.filimosearch.features.search.data.repository.SearchRepositoryImpl
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -19,6 +23,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Log.i(TAG, "onCreate: $api")
+        CoroutineScope(Dispatchers.IO).launch {
+            val searchResult = SearchRepositoryImpl(api).search("yaqi")
+            Log.i(TAG, "onCreate: ${searchResult.isSuccess}")
+        }
     }
 }
