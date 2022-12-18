@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "FilimoSearch"
-include ':app'
+include(":app")
