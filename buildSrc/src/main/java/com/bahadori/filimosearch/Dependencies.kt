@@ -61,4 +61,9 @@ object Libs {
     object Lottie {
         const val lottie = "com.airbnb.android:lottie:5.2.0"
     }
+
+    object Glide {
+        const val glide = "com.github.bumptech.glide:glide:4.13.2"
+        const val compiler = "com.github.bumptech.glide:compiler:4.13.2"
+    }
 }

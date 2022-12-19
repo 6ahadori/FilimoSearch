@@ -12,4 +12,6 @@
     <color name="orange_2">#F99F3E</color>
     <color name="brown_1">#413112</color>
     <color name="brown_2">#755C2B</color>
+    <color name="gray_day">#9F9F9F</color>
+    <color name="gray_night">#303030</color>
 </resources>

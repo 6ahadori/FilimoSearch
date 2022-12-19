@@ -23,17 +23,20 @@
                 android:padding="14dp"
                 app:srcCompat="@drawable/logo" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/greeting"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/theme"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
                 android:layout_marginStart="16dp"
+                android:background="@null"
+                style="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+                app:tint="?bw"
                 android:layout_marginEnd="16dp"
-                android:textSize="20sp"
-                android:fontFamily="@font/vazir_black"
-                app:fontFamily="@font/vazir_black"
-                android:layout_centerVertical="true" />
+                android:padding="12dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_moon" />
 
         </RelativeLayout>
     </com.google.android.material.appbar.MaterialToolbar>
@@ -60,11 +63,24 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         android:fadingEdge="vertical"
-        android:fadingEdgeLength="16dp"
+        android:fadingEdgeLength="32dp"
+        android:requiresFadingEdge="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_layout" />
+
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_layout" />
 
     <com.airbnb.lottie.LottieAnimationView

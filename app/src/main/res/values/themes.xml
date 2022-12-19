@@ -14,6 +14,9 @@
 
         <item name="fontFamily">@font/vazir_regular</item>
         <item name="android:fontFamily">@font/vazir_regular</item>
+        <item name="movieTitle">@color/black</item>
+        <item name="placeholder">@color/gray_day</item>
+        <item name="bw">@color/black</item>
     </style>
 
     <style name="Theme.FilimoSearch.NoActionBar">

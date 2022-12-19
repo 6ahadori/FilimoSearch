@@ -12,14 +12,4 @@ object Utils {
             "Expected to be called on the main thread but was " + Thread.currentThread().name
         }
     }
-
-    fun getGreetingMessage(): Int {
-        return when (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
-            in 0..11 -> R.string.good_morning
-            in 12..15 -> R.string.good_afternoon
-            in 16..20 -> R.string.good_evening
-            in 21..23 -> R.string.good_night
-            else -> R.string.hello
-        }
-    }
 }

@@ -14,5 +14,8 @@
 
         <item name="fontFamily">@font/vazir_regular</item>
         <item name="android:fontFamily">@font/vazir_regular</item>
+        <item name="movieTitle">@color/white</item>
+        <item name="placeholder">@color/gray_night</item>
+        <item name="bw">@color/white</item>
     </style>
 </resources>

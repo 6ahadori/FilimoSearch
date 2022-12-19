@@ -70,4 +70,7 @@ dependencies {
     testImplementation(Libs.Lifecycle.coreTesting)
 
     implementation(Libs.Lottie.lottie)
+
+    implementation(Libs.Glide.glide)
+    kapt(Libs.Glide.compiler)
 }

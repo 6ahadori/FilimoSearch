@@ -11,9 +11,13 @@ class Search(
     private val searchRepository: SearchRepository
 ) {
 
-    operator fun invoke(query: String?) = flow<Resource<List<Data>>> {
+    operator fun invoke(query: String?) = flow<Resource<List<Data>>?> {
         try {
             if (query == null) throw NullPointerException("برای جستجو عبارتی را وارد کنید.")
+            if (query.isBlank()) {
+                emit(null)
+                return@flow
+            }
             emit(Resource.Loading())
             val result = searchRepository.search(query)
             if (result.isSuccess) {
