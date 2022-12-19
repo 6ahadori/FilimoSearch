@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
+import com.bahadori.filimosearch.R
 import com.bahadori.filimosearch.databinding.FragmentSearchBinding
 import com.bahadori.filimosearch.features.core.util.common.Constants.TAG
 import com.bahadori.filimosearch.features.core.util.common.Resource
@@ -21,13 +23,11 @@ import com.bahadori.filimosearch.features.core.util.ext.show
 import com.bahadori.filimosearch.features.core.util.ext.showMessage
 import com.bahadori.filimosearch.features.core.util.ext.textChanges
 import com.bahadori.filimosearch.features.search.domain.model.Data
+import com.bahadori.filimosearch.features.theme.domain.model.Theme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -75,31 +75,54 @@ class SearchFragment : Fragment(), MovieAdapter.Interaction {
                 if (query.isNullOrBlank()) adapter.submitList(emptyList())
                 viewModel.onEvent(SearchEvent.OnQueryChanged(query.toString()))
             }.launchIn(lifecycleScope)
+
+        binding.theme.setOnClickListener {
+            when (viewModel.theme.value) {
+                Theme.Day -> viewModel.onEvent(SearchEvent.SetTheme(Theme.Night))
+                Theme.Night -> viewModel.onEvent(SearchEvent.SetTheme(Theme.Day))
+            }
+        }
     }
 
     private fun setupObservers() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.state.collect { state ->
-                    state.movies.let { resource ->
-                        binding.empty.hide()
-                        binding.loading.hide()
-                        binding.initialState.hide()
-                        adapter.submitList(resource?.data ?: emptyList())
-                        when (resource) {
-                            is Resource.Error -> {
-                                requireActivity().showMessage(resource.message)
+                launch {
+                    viewModel.theme.collect { theme ->
+                        when (theme) {
+                            Theme.Day -> {
+                                binding.theme.setImageResource(R.drawable.ic_moon)
+                                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                             }
-                            is Resource.Loading -> {
-                                binding.loading.show()
+                            Theme.Night -> {
+                                binding.theme.setImageResource(R.drawable.ic_sun)
+                                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                             }
-                            is Resource.Success -> {
-                                if (resource.data.isNullOrEmpty()) {
-                                    binding.empty.show()
+                        }
+                    }
+                }
+                launch {
+                    viewModel.state.collect { state ->
+                        state.movies.let { resource ->
+                            binding.empty.hide()
+                            binding.loading.hide()
+                            binding.initialState.hide()
+                            adapter.submitList(resource?.data ?: emptyList())
+                            when (resource) {
+                                is Resource.Error -> {
+                                    requireActivity().showMessage(resource.message)
                                 }
-                            }
-                            else -> {
-                                binding.initialState.show()
+                                is Resource.Loading -> {
+                                    binding.loading.show()
+                                }
+                                is Resource.Success -> {
+                                    if (resource.data.isNullOrEmpty()) {
+                                        binding.empty.show()
+                                    }
+                                }
+                                else -> {
+                                    binding.initialState.show()
+                                }
                             }
                         }
                     }
