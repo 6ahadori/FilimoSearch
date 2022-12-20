@@ -8,7 +8,7 @@ git clone https://github.com/6ahadori/FilimoSearch.git
 ```
 
 now Build and Run app on the emulator or on your own device.
-Also you can download latest release on the release section.
+Also you can download latest release on the Releases section.
 
 ## Used Technologies
 *   MVVM
