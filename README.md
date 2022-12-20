@@ -11,7 +11,6 @@ now Build and Run app on the emulator or on your own device.
 Also you can download latest release on the Releases section.
 
 ## Used Technologies
-*   MVVM
 *   Night/Day Mode
 *   Dependency Injection with [Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
 *   Retrofit
