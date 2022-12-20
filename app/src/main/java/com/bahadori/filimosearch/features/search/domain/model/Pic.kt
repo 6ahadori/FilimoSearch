@@ -1,8 +1,10 @@
 package com.bahadori.filimosearch.features.search.domain.model
 
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class Pic(
     @SerializedName("movie_img_b")
     val movieImgB: String?,
